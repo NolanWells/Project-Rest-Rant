@@ -36,3 +36,8 @@ function new_form() {
 }
 
 module.export = new_form
+
+// router.get('/new', (req, res) => {
+//     res.render('places/new')
+//   })
+  
