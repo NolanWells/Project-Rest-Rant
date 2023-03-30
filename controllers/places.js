@@ -18,14 +18,14 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   let id = Number(req.params.id)
-  if(isNaN(id)) {
+  if (isNaN(id)) {
     res.render('error404')
   }
-  else if (!places[id]){
+  else if (!places[id]) {
     res.render('error404')
   }
-  else{
-    res.render('places/show', { places: places[id] })
+  else {
+    res.render('places/show', { places: places[id], id })
   }
 })
 
@@ -34,25 +34,40 @@ router.get('/:id', (req, res) => {
 // })
 
 router.get('/', (req, res) => {
-    let places = [{
-        name: 'H-Thai-ML',
-        city: 'Seattle',
-        state: 'WA',
-        cuisines: 'Thai, Pan-Asian',
-        pic: '/images/mountain.jpg'
-      }, {
-        name: 'Coding Cat Cafe',
-        city: 'Phoenix',
-        state: 'AZ',
-        cuisines: 'Coffee, Bakery',
-        pic: '/images/seaside.jpg'
-      }]
-      
-    res.render('places/index', {
-        places: places,
-    })
-    //res.send('GET /places')
+  let places = [{
+    name: 'H-Thai-ML',
+    city: 'Seattle',
+    state: 'WA',
+    cuisines: 'Thai, Pan-Asian',
+    pic: '/images/mountain.jpg'
+  }, {
+    name: 'Coding Cat Cafe',
+    city: 'Phoenix',
+    state: 'AZ',
+    cuisines: 'Coffee, Bakery',
+    pic: '/images/seaside.jpg'
+  }]
+
+  res.render('places/index', {
+    places: places,
+  })
+  //res.send('GET /places')
 })
+
+router.delete('/:id', (req, res) => {
+  let id = Number(req.params.id)
+  if (isNaN(id)) {
+    res.render('error404')
+  }
+  else if (!places[id]) {
+    res.render('error404')
+  }
+  else {
+    places.splice(id,1)
+    res.render('/places')
+  }
+})
+
 
 
 module.exports = router
